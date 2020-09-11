@@ -6,4 +6,6 @@ const router = express.Router();
 // @access  Public
 router.get("/", (req, res) => res.send("Profile route"));
 
+//router.get("/user",  res.send("Profile route"));
+
 module.exports = router;
