@@ -1,4 +1,6 @@
 {
   "mongoURI": "mongodb+srv://philip123:S3sh0wallisme@devconnector.nyk9q.mongodb.net/philip123?retryWrites=true&w=majority",
-  "jwtSecret": "myjwttoken"
+  "jwtSecret": "myjwttoken",
+  "githubClientId": "4af9fcb305905899163b",
+  "githubClientSecret": "9673abfd9843652dca326fa43a1ca9065cb7ebeb"
 }
