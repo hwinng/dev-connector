@@ -21,6 +21,8 @@ router.get("/me", auth, async (req, res) => {
     if (!profile) {
       return res.status(400).json({ msg: "There is no profile of this user." });
     }
+
+    res.json(profile);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("Server errored");
@@ -61,6 +63,7 @@ router.post(
 
     // Build profile object
     const profileFields = {};
+
     profileFields.user = req.user.id;
     if (company) profileFields.company = company;
     if (website) profileFields.website = website;

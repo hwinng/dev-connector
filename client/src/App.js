@@ -11,6 +11,12 @@ import Landing from "./components/layout/Landing";
 import Register from "./components/auth/Register";
 import Login from "./components/auth/Login";
 import Alert from "./components/layout/Alert";
+import Dashboard from "./components/dashboard/Dashboard";
+import ProtectRoute from "./components/routing/PrivateRoute";
+import CreateProfile from "./components/profile-forms/CreateProfile";
+import EditProfile from "./components/profile-forms/EditProfile";
+import AddExperience from "./components/profile-forms/AddExperience";
+import AddEducation from "./components/profile-forms/AddEducation";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -32,6 +38,27 @@ const App = () => {
             <Switch>
               <Route exact path='/register' component={Register} />
               <Route exact path='/login' component={Login} />
+              <ProtectRoute exact path='/dashboard' component={Dashboard} />
+              <ProtectRoute
+                exact
+                path='/create-profile'
+                component={CreateProfile}
+              />
+              <ProtectRoute
+                exact
+                path='/edit-profile'
+                component={EditProfile}
+              />
+              <ProtectRoute
+                exact
+                path='/add-experience'
+                component={AddExperience}
+              />
+              <ProtectRoute
+                exact
+                path='/add-education'
+                component={AddEducation}
+              />
             </Switch>
           </section>
         </Fragment>
