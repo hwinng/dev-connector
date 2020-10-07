@@ -8,6 +8,7 @@ const auth = require("../../middlewares/auth");
 
 const User = require("../../models/User");
 const Profile = require("../../models/Profile");
+const Post = require("../../models/Post");
 
 // @route   GET api/profile/me
 // @desc    Get the current user profile
@@ -65,15 +66,25 @@ router.post(
     const profileFields = {};
 
     profileFields.user = req.user.id;
-    if (company) profileFields.company = company;
-    if (website) profileFields.website = website;
-    if (location) profileFields.location = location;
-    if (status) profileFields.status = status;
-    if (bio) profileFields.bio = bio;
-    if (githubusername) profileFields.githubusername = githubusername;
-    if (skills) {
-      profileFields.skills = skills.split(",").map((skill) => skill.trim());
+
+    for (field in req.body) {
+      if (req.body[field]) {
+        if (field === "skills")
+          profileFields.skills = req.body[field]
+            .split(",")
+            .map((skill) => skill.trim());
+        else profileFields[field] = req.body[field];
+      }
     }
+    // if (company) profileFields.company = company;
+    // if (website) profileFields.website = website;
+    // if (location) profileFields.location = location;
+    // if (status) profileFields.status = status;
+    // if (bio) profileFields.bio = bio;
+    // if (githubusername) profileFields.githubusername = githubusername;
+    // if (skills) {
+    //   profileFields.skills = skills.split(",").map((skill) => skill.trim());
+    // }
 
     // Build social object
     profileFields.social = {};
@@ -97,6 +108,7 @@ router.post(
 
       //Create
       profile = new Profile(profileFields);
+
       await profile.save();
       res.json(profile);
     } catch (err) {
@@ -151,6 +163,8 @@ router.get("/user/:user_id", async (req, res) => {
 // @access  Private
 router.delete("/", auth, async (req, res) => {
   try {
+    //remove all posts
+    await Post.deleteMany({ user: req.user.id });
     // Remove profile
     await Profile.findOneAndDelete({ user: req.user.id });
     // Remove user
@@ -292,7 +306,7 @@ router.put(
   }
 );
 
-// @route   DELETE api/profile/education/:exp_id
+// @route   DELETE api/profile/education/:edu_id
 // @desc    Delete education by Id
 // @access  Private
 router.delete("/education/:edu_id", auth, async (req, res) => {
