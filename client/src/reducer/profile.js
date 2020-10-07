@@ -1,8 +1,11 @@
 import {
   GET_PROFILE,
+  GET_ALL_PROFILES,
   PROFILE_ERROR,
   CLEAR_PROFILE,
   UPDATE_PROFILE,
+  GET_REPOS,
+  NO_REPOS,
 } from "../actions/constant";
 
 const initialState = {
@@ -23,6 +26,12 @@ export default function (state = initialState, action) {
         profile: payload,
         loading: false,
       };
+    case GET_ALL_PROFILES:
+      return {
+        ...state,
+        profiles: payload,
+        loading: false,
+      };
     case PROFILE_ERROR:
       return {
         ...state,
@@ -36,7 +45,17 @@ export default function (state = initialState, action) {
         repos: [],
         loading: false,
       };
-
+    case GET_REPOS:
+      return {
+        ...state,
+        repos: payload,
+        loading: false,
+      };
+    case NO_REPOS:
+      return {
+        ...state,
+        repos: [],
+      };
     default:
       return state;
   }
