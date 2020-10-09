@@ -336,9 +336,9 @@ router.get("/github/:username", (req, res) => {
     const options = {
       uri: `https://api.github.com/users/${
         req.params.username
-      }/repos?per_page=7&sort=created:asc&client_id=${config.get(
+      }/repos?per_page=5&sort=created:asc&client_id=${config.get(
         "githubClientId"
-      )}&client_secret=${config.get("githubClientSecret")}`,
+      )}&client_secret=${config.get("githubSecret")}`,
       method: "GET",
       headers: { "user-agent": "node.js" },
     };
@@ -347,14 +347,14 @@ router.get("/github/:username", (req, res) => {
       if (error) console.error(error);
 
       if (response.statusCode !== 200) {
-        return res.status(404).json({ msg: "No github profile found" });
+        return res.status(404).json({ msg: "No Github profile found" });
       }
 
       res.json(JSON.parse(body));
     });
   } catch (err) {
     console.error(err.message);
-    res.status(500).send("Server errors...");
+    res.status(500).send("Server Error");
   }
 });
 module.exports = router;

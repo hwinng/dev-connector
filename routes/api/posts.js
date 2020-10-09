@@ -38,6 +38,37 @@ router.post(
   }
 );
 
+// @route   PUT /api/posts/edit/:id
+// @desc    Edit post by ID
+// @access  Private
+router.put("/edit/:id", auth, async (req, res) => {
+  try {
+    const post = await Post.findById(req.params.id);
+
+    if (!post) {
+      return res.status(404).json({ msg: "Post not found" });
+    }
+
+    // Check user
+    if (post.user.toString() !== req.user.id) {
+      return res.status(401).json({ msg: "User not authorized" });
+    }
+
+    post.text = req.body.text;
+    post.edited = new Date();
+
+    await post.save();
+
+    res.json(post);
+  } catch (err) {
+    console.log(err.message);
+    if (err.kind === "ObjectId") {
+      return res.status(404).json({ msg: "Post not found" });
+    }
+    res.status(500).send("Server Error");
+  }
+});
+
 // @route   GET api/posts
 // @desc    Get all the post
 // @access  Private
