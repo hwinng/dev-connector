@@ -8,7 +8,6 @@ import {
   ACCOUNT_DELETED,
   GET_ALL_PROFILES,
   GET_REPOS,
-  NO_REPOS,
 } from "./constant";
 
 //get current profile of user
