@@ -79,7 +79,7 @@ router.post(
 
 // @route   GET /api/jobs
 // @desc    Get all job postings
-// @access  Private
+// @access  Public
 router.get("/", async (req, res) => {
   try {
     const jobs = await Job.find().sort({ date: -1 });

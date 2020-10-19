@@ -4,7 +4,6 @@ const app = express();
 //Connect database
 connectDB();
 
-// Init middleware
 app.use(express.json({ extented: true }));
 
 app.get("/", (req, res) => res.send("API Running"));
