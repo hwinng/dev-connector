@@ -24,3 +24,6 @@ export const DELETE_POST = "DELETE_POST";
 export const UPDATE_LIKES = "UPDATE_LIKE";
 export const ADD_COMMENT = "ADD_COMMENT";
 export const REMOVE_COMMENT = "REMOVE_COMMENT";
+export const GET_JOBS = "GET_JOBS";
+export const JOB_ERROR = "JOB_ERROR";
+export const ADD_JOB = "ADD_JOB";

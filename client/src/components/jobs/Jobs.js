@@ -5,6 +5,7 @@ import JobItem from "./JobItem";
 import Spinner from "../layout/Spinner";
 import { connect } from "react-redux";
 import { getJobs } from "../../actions/job";
+import job from "../../reducer/job";
 
 const Jobs = ({ job: { jobs, loading }, getJobs }) => {
   useEffect(() => {

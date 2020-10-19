@@ -34,7 +34,7 @@ const JobItem = ({
         {salary && <p>Compensation: {salary}</p>}
         {benefits && <p>Benefits Offered: {benefits}</p>}
         <p>Skills required: {skills}</p>
-        <p>Posted by {name.split(" ")[0]}</p>
+        <p>Posted by {name}</p>
         <p>Contact: {contactName}</p>
         <p>Contact Information: {contactInfo}</p>
       </div>

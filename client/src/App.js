@@ -22,6 +22,8 @@ import Profile from "./components/profile/Profile";
 import Posts from "./components/posts/Posts";
 import Post from "./components/post/Post";
 import EditPost from "./components/posts/EditPost";
+import Jobs from "./components/jobs/Jobs";
+import AddJob from "./components/jobs/AddJob";
 if (localStorage.token) {
   setAuthToken(localStorage.token);
 }
@@ -44,6 +46,7 @@ const App = () => {
               <Route exact path='/login' component={Login} />
               <Route exact path='/profiles' component={Profiles} />
               <Route exact path='/profile/user/:id' component={Profile} />
+              <Route exact path='/jobs' component={Jobs} />
               <PrivateRoute exact path='/dashboard' component={Dashboard} />
               <PrivateRoute
                 exact
@@ -68,6 +71,7 @@ const App = () => {
               <PrivateRoute exact path='/posts' component={Posts} />
               <PrivateRoute exact path='/posts/:id' component={Post} />
               <PrivateRoute exact path='/posts/edit/:id' component={EditPost} />
+              <PrivateRoute exact path='/jobs/add-job' component={AddJob} />
             </Switch>
           </section>
         </Fragment>

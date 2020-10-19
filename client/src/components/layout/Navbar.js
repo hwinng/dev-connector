@@ -9,6 +9,12 @@ const Navbar = ({ logout, auth: { isAuthenticated, loading } }) => {
   const authLinks = (
     <ul>
       <li>
+        <Link to='/jobs'>
+          <i className='far fa-list-alt' />{" "}
+          <span className='hide-sm'>Job Board</span>
+        </Link>
+      </li>
+      <li>
         <Link to='/profiles'>
           <i className='fab fa-connectdevelop' />{" "}
           <span className='hide-sm'>Developers</span>
@@ -37,6 +43,12 @@ const Navbar = ({ logout, auth: { isAuthenticated, loading } }) => {
 
   const guestLinks = (
     <ul>
+      <li>
+        <Link to='/jobs'>
+          <i className='far fa-list-alt' />{" "}
+          <span className='hide-sm'>Job Board</span>
+        </Link>
+      </li>
       <li>
         <Link to='/profiles'>
           <i className='fab fa-connectdevelop' />{" "}
