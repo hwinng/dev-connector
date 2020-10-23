@@ -1,19 +1,11 @@
 require("dotenv").config();
 const express = require("express");
 const router = express.Router();
-
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-//const config = require("config");
-const { check, validationResult } = require("express-validator");
-
-// Schema Model
-const User = require("../../models/User");
-//middlewares
 const auth = require("../../middlewares/auth");
+const { userLogin } = require("../../utils/Authentication");
 
 // @route   GET api/auth
-// @desc    Test route
+// @desc    get the user login information without password
 // @access  Public
 router.get("/", auth, async (req, res) => {
   try {
@@ -25,45 +17,24 @@ router.get("/", auth, async (req, res) => {
   }
 });
 
+// @route POST api/auth
+// @desc User login
+// @access Public
 router.post("/", async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
-  }
-
-  const { email, password } = req.body;
-  try {
-    // Check if user is already exists
-    let user = await User.findOne({ email });
-    if (!user) {
-      return res.status(400).json({ errors: [{ msg: "Invalid Credentials" }] });
-    }
-
-    const isMatched = await bcrypt.compare(password, user.password);
-
-    if (!isMatched) {
-      return res.status(400).json({ errors: [{ msg: "Invalid Credentials" }] });
-    }
-
-    // return jsonwebtoken
-    const payload = {
-      user: {
-        id: user.id,
-      },
-    };
-    jwt.sign(
-      payload,
-      process.env.jwtSecret,
-      { expiresIn: 360000 },
-      (err, token) => {
-        if (err) throw err;
-        res.json({ token });
-      }
-    );
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).json("Server errors...");
-  }
+  await userLogin(req, res, "user");
 });
 
+// @route POST api/auth/login-recruiter
+// @desc Recruiter login
+// @access Public
+router.post("/login-recruiter", async (req, res) => {
+  await userLogin(req, res, "recruiter");
+});
+
+// @route POST api/auth/login-admin
+// @desc Admin login
+// @access Public
+router.post("/login-admin", async (req, res) => {
+  await userLogin(req, res, "admin");
+});
 module.exports = router;
