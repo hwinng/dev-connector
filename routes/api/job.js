@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { check, validationResult } = require("express-validator");
 const auth = require("../../middlewares/auth");
-const classifyRole = require("../../middlewares/classifyRole");
+const { checkRole } = require("../../middlewares/classifyRole");
 
 // Load Models
 const User = require("../../models/User");
@@ -10,12 +10,12 @@ const Job = require("../../models/Job");
 
 // @route   POST /api/jobs
 // @desc    Create a job post
-// @access  Private
+// @access  Recruiter only
 router.post(
   "/",
   [
     auth,
-    classifyRole(["recruiter"]),
+    checkRole(["recruiter"]),
     [
       check("seniority", "Seniority field is required").not().isEmpty(),
       check("term", "Term field is required").not().isEmpty(),

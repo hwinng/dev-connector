@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { addJob } from "../../actions/job";
 
-const AddJob = ({ addJob, history }) => {
+const AddJob = ({ auth, addJob, history }) => {
   const [formData, setFormData] = useState({
     seniority: "",
     term: "",
@@ -40,8 +40,10 @@ const AddJob = ({ addJob, history }) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-
-    addJob(formData, history);
+    formData["role"] = auth.user.role;
+    if (auth.user.role === "recruiter") {
+      addJob(formData, history);
+    }
   };
 
   return (
@@ -174,6 +176,10 @@ const AddJob = ({ addJob, history }) => {
 
 AddJob.propTypes = {
   addJob: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
 };
 
-export default connect(null, { addJob })(withRouter(AddJob));
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+export default connect(mapStateToProps, { addJob })(withRouter(AddJob));

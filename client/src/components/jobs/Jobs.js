@@ -5,9 +5,12 @@ import JobItem from "./JobItem";
 import Spinner from "../layout/Spinner";
 import { connect } from "react-redux";
 import { getJobs } from "../../actions/job";
-import job from "../../reducer/job";
 
-const Jobs = ({ job: { jobs, loading }, getJobs }) => {
+const Jobs = ({
+  auth: { isAuthenticated, user },
+  job: { jobs, loading },
+  getJobs,
+}) => {
   useEffect(() => {
     getJobs();
   }, [getJobs]);
@@ -20,13 +23,15 @@ const Jobs = ({ job: { jobs, loading }, getJobs }) => {
         <i className='far fa-list-alt' /> Browse and see our list of
         opportunities
       </p>
-      <Link
-        className='btn btn-dark'
-        to='/jobs/add-job'
-        style={{ marginBottom: "20px" }}
-      >
-        Post New Listing
-      </Link>
+      {isAuthenticated && user.role === "recruiter" && (
+        <Link
+          className='btn btn-dark'
+          to='/jobs/add-job'
+          style={{ marginBottom: "20px" }}
+        >
+          Post New Listing
+        </Link>
+      )}
       {jobs.map((job) => (
         <JobItem key={job._id} job={job} />
       ))}
@@ -37,10 +42,12 @@ const Jobs = ({ job: { jobs, loading }, getJobs }) => {
 Jobs.propTypes = {
   job: PropTypes.object.isRequired,
   getJobs: PropTypes.func.isRequired,
+  auth: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   job: state.job,
+  auth: state.auth,
 });
 
 export default connect(mapStateToProps, { getJobs })(Jobs);
