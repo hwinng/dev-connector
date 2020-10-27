@@ -1,12 +1,11 @@
 const express = require("express");
 const router = express.Router();
-const { check, validationResult } = require("express-validator");
+const { check } = require("express-validator");
 const auth = require("../../middlewares/auth");
 const { checkRole } = require("../../middlewares/classifyRole");
 
-// Load Models
-const User = require("../../models/User");
-const Job = require("../../models/Job");
+// controllers
+const { createJob, getJobs } = require("../../controllers/job.controller");
 
 // @route   POST /api/jobs
 // @desc    Create a job post
@@ -28,54 +27,7 @@ router.post(
     ],
   ],
   async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-      return res.status(400).json({ errors: errors.array() });
-    }
-
-    const {
-      seniority,
-      term,
-      position,
-      skills,
-      description,
-      location,
-      salary,
-      benefits,
-      companyName,
-      contactName,
-      contactInfo,
-      availability,
-    } = req.body;
-
-    try {
-      const user = await User.findById(req.user.id).select("-password");
-
-      const newJob = new Job({
-        user: req.user.id,
-        name: user.name,
-        avatar: user.avatar,
-        seniority,
-        term,
-        position,
-        skills,
-        description,
-        location,
-        salary,
-        benefits,
-        companyName,
-        contactName,
-        contactInfo,
-        availability,
-      });
-
-      const job = await newJob.save();
-
-      res.json(job);
-    } catch (err) {
-      console.log(err.message);
-      res.status(500).send("Server Error");
-    }
+    await createJob(req, res);
   }
 );
 
@@ -83,14 +35,7 @@ router.post(
 // @desc    Get all job postings
 // @access  Public
 router.get("/", async (req, res) => {
-  try {
-    const jobs = await Job.find().sort({ date: -1 });
-
-    res.send(jobs);
-  } catch (err) {
-    console.log(err.message);
-    res.status(500).send("Server Error");
-  }
+  await getJobs(req, res);
 });
 
 module.exports = router;

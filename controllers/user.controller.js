@@ -1,8 +1,9 @@
-const User = require("../models/User");
 const gravatar = require("gravatar");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const { validationResult } = require("express-validator");
+
+const User = require("../models/User");
 
 const userRegister = async (req, res, role) => {
   const errors = validationResult(req);
@@ -60,49 +61,6 @@ const userRegister = async (req, res, role) => {
   }
 };
 
-const userLogin = async (req, res, role) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
-  }
-
-  const { email, password } = req.body;
-  try {
-    // Check if user is already exists
-    let user = await User.findOne({ email });
-
-    if (!user) {
-      return res.status(400).json({ errors: [{ msg: "Invalid Credentials" }] });
-    }
-
-    const isMatched = await bcrypt.compare(password, user.password);
-
-    if (!isMatched) {
-      return res.status(400).json({ errors: [{ msg: "Invalid Credentials" }] });
-    }
-
-    // return jsonwebtoken
-    const payload = {
-      user: {
-        id: user.id,
-      },
-    };
-    jwt.sign(
-      payload,
-      process.env.jwtSecret,
-      { expiresIn: 360000 },
-      (err, token) => {
-        if (err) throw err;
-        res.json({ token });
-      }
-    );
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).json("Server errors...");
-  }
-};
-
 module.exports = {
   userRegister,
-  userLogin,
 };

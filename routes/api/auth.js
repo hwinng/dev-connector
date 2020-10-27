@@ -2,19 +2,13 @@ require("dotenv").config();
 const express = require("express");
 const router = express.Router();
 const auth = require("../../middlewares/auth");
-const { userLogin } = require("../../utils/Authentication");
+const { userLogin, getAuth } = require("../../controllers/auth.controller");
 
 // @route   GET api/auth
 // @desc    get the user login information without password
 // @access  Public
 router.get("/", auth, async (req, res) => {
-  try {
-    const user = await User.findById(req.user.id).select("-password");
-    res.json(user);
-  } catch (err) {
-    console.error(err.message);
-    res.status(500).json({ msg: "Server error..." });
-  }
+  await getAuth(req, res);
 });
 
 // @route POST api/auth

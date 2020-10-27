@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 
 const User = require("../models/User");
 const checkRole = (roles) => async (req, res, next) => {
-  const token = req.header("auth-token");
+  const token = req.header(process.env.TOKEN_HEADER);
 
   if (!token) {
     return res

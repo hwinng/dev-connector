@@ -1,13 +1,23 @@
-const mongoosee = require("mongoose");
+const mongoose = require("mongoose");
 
-const messageSchema = new mongoosee.Schema(
+const messageSchema = new mongoose.Schema(
   {
-    content: String,
-    name: String,
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "user",
+    },
+    message: {
+      type: String,
+      required: true,
+    },
+    ip: String,
+    agent: {
+      platform: String,
+      os: String,
+    },
+    partialIp: String,
+    timezone: String,
   },
-  {
-    timestamps: true,
-  }
+  { timestamps: true }
 );
-
-module.exports = Message = mongoosee.model("message", messageSchema);
+module.exports = mongoose.model("Message", messageSchema);
