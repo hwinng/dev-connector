@@ -1,0 +1,31 @@
+.chat-icon-container {
+  cursor: pointer;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  z-index: 1;
+  margin: 1rem;
+  padding: 1rem;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 2px 6px #ccc;
+  &:hover {
+    .icon-comment-dots {
+      opacity: 1;
+    }
+  }
+  .icon-comment-dots {
+    color: #ea4334;
+    opacity: 0.8;
+    width: 25px;
+    height: 25px;
+  }
+  .chat-icon-user-count {
+    position: absolute;
+    bottom: 3px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.7rem;
+    color: #333;
+  }
+}

@@ -23,7 +23,7 @@ body {
 
 a {
   color: var(--primary-color);
-  text-decoration: none;
+  text-decoration: none !important;
 }
 
 ul {

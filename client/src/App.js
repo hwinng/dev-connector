@@ -24,6 +24,7 @@ import Post from "./components/post/Post";
 import EditPost from "./components/posts/EditPost";
 import Jobs from "./components/jobs/Jobs";
 import AddJob from "./components/jobs/AddJob";
+import Chat from "./components/chatApp/Chat";
 if (localStorage.token) {
   setAuthToken(localStorage.token);
 }
@@ -38,6 +39,7 @@ const App = () => {
       <Router>
         <Fragment>
           <NavBar />
+          <Chat />
           <Route exact path='/' component={Landing} />
           <section className='container'>
             <Alert />

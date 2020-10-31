@@ -5,8 +5,6 @@ const app = express();
 const useragent = require("express-useragent");
 const rateLimit = require("express-rate-limit");
 
-connectDB();
-
 app.use(express.json({ extented: true }));
 app.use(useragent.express());
 
@@ -17,18 +15,18 @@ const appLimiter = rateLimit({
 });
 app.use(appLimiter);
 
-// Set CORS header
-// app.use((req, res, next) => {
-//   res.setHeader("Access-control-Allow-Origin", "*");
-//   res.setHeader(
-//     "Access-Control-Allow-Methods",
-//     "GET, POST, DELETE, PUT, OPTIONS"
-//   );
-//   res.setHeader("Set-Cookie", "HttpOnly;Secure;SameSite=Strict");
-//   // Allow client to set headers with Content-Type
-//   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
-//   next();
-// });
+//Set CORS header
+app.use((req, res, next) => {
+  res.setHeader("Access-control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, DELETE, PUT, OPTIONS"
+  );
+  res.setHeader("Set-Cookie", "HttpOnly;Secure;SameSite=Strict");
+  // Allow client to set headers with Content-Type
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+  next();
+});
 
 // Error Handler
 app.use((error, req, res, next) => {
@@ -46,6 +44,7 @@ app.use("/api/profile", require("./routes/api/profile"));
 app.use("/api/jobs", require("./routes/api/job"));
 app.use("/api/messages", require("./routes/api/message"));
 
-const PORT = process.env.PORT || 5000;
+connectDB();
 
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));

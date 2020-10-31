@@ -1,0 +1,7 @@
+@import "~bootstrap/scss/bootstrap";
+@import "../chat/Shared/config";
+@import "../chat/Shared/util";
+.Chat {
+  position: relative;
+  text-align: center;
+}

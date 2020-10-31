@@ -1,0 +1,20 @@
+/* ==========================================================================
+   Shared Variables
+   ========================================================================== */
+
+$website-width: 1280px;
+
+// Colors
+$border-color: #e8e8e8;
+
+$light-color: #fafafa;
+$med-color: #ccc;
+$dark-color: #333;
+
+$primary-color: #6f777d;
+$success-color: #3ba73b;
+$warning-color: #cd7905;
+$danger-color: #eb605b;
+$info-color: #3fa0bd;
+$focus-color: $primary-color;
+$active-color: mix(#fff, $primary-color, 80%);

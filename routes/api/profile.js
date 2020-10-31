@@ -14,6 +14,7 @@ const {
   removeExperience,
   addEducation,
   removeEducation,
+  getUserRepos,
 } = require("../../controllers/profile.controller");
 
 // @route   GET api/profile/me

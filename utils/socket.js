@@ -1,4 +1,3 @@
-// share socket io instance across different files
 let io;
 module.exports = {
   init: (httpServer) => {
