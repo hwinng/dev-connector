@@ -1,19 +1,24 @@
 const express = require("express");
-const { body } = require("express-validator");
 const router = express.Router();
-const messageController = require("../../controllers/message.controller");
+const { body } = require("express-validator");
+const auth = require("../../middlewares/auth");
+const {
+  getMessages,
+  postMessage,
+} = require("../../controllers/message.controller");
 
-// @endpoint /api/messages
-// @method GET
-// @access Private
-router.get("/", messageController.getMessages);
+// GET /messages
+router.get("/messages", auth, (req, res) => {
+  getMessages(req, res);
+});
 
-// @endpoint /api/messages/message
-// @method POST
-// @access Private
+// POST /message
 router.post(
   "/message",
   [body("message").trim().isLength({ min: 1, max: 100 })],
-  messageController.postMessage
+  auth,
+  (req, res) => {
+    postMessage(req, res);
+  }
 );
 module.exports = router;

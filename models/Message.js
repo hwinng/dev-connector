@@ -1,23 +1,18 @@
 const mongoose = require("mongoose");
-
 const messageSchema = new mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "user",
     },
+    from: {
+      type: String,
+    },
     message: {
       type: String,
       required: true,
     },
-    ip: String,
-    agent: {
-      platform: String,
-      os: String,
-    },
-    partialIp: String,
-    timezone: String,
   },
   { timestamps: true }
 );
-module.exports = mongoose.model("Message", messageSchema);
+module.exports = Message = mongoose.model("message", messageSchema);

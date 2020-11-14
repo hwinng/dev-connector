@@ -1,50 +1,54 @@
 require("dotenv").config();
 const express = require("express");
-const connectDB = require("./config/db");
+const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+
 const app = express();
-const useragent = require("express-useragent");
-const rateLimit = require("express-rate-limit");
 
-app.use(express.json({ extented: true }));
-app.use(useragent.express());
-
-// Set up rate limiter for entire app requests
-const appLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 150, // limit each IP # requests per windowMs
+// Define server
+const port = process.env.PORT || 8080;
+const server = app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
 });
-app.use(appLimiter);
+const io = require("socket.io").listen(server);
 
-//Set CORS header
-app.use((req, res, next) => {
-  res.setHeader("Access-control-Allow-Origin", "*");
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "GET, POST, DELETE, PUT, OPTIONS"
-  );
-  res.setHeader("Set-Cookie", "HttpOnly;Secure;SameSite=Strict");
-  // Allow client to set headers with Content-Type
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+app.use(
+  bodyParser.urlencoded({
+    extended: false,
+  })
+);
+app.use(bodyParser.json());
+
+// CORS middleware
+app.use(cors());
+
+//connect database;
+mongoose
+  .connect(process.env.mongoURI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false,
+  })
+  .then(() => {
+    console.log("Mongodb successfully connected");
+  })
+  .catch((err) => {
+    console.log(err);
+    process.exit(1);
+  });
+
+// Assign socket object to every request
+app.use(function (req, res, next) {
+  req.io = io;
   next();
 });
 
-// Error Handler
-app.use((error, req, res, next) => {
-  const status = error.statusCode || 500;
-  const message = error.message;
-  const data = error.data; // Passing original error data
-  res.status(status).json({ message: message, data: data });
-});
-
-//define routes
+//usable routes
 app.use("/api/users", require("./routes/api/users"));
 app.use("/api/posts", require("./routes/api/posts"));
 app.use("/api/auth", require("./routes/api/auth"));
 app.use("/api/profile", require("./routes/api/profile"));
 app.use("/api/jobs", require("./routes/api/job"));
-app.use("/api/messages", require("./routes/api/message"));
-
-connectDB();
-
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+app.use("/", require("./routes/api/message"));
