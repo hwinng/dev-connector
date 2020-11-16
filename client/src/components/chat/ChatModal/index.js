@@ -48,10 +48,11 @@ const ChatModal = ({ toggleShowChat, userCount, messages }) => {
     if (message.trim().length > 0 && message.length <= MESSAGE.CHAR_LIMIT) {
       setSendLoading(true);
       try {
-        const res = await fetch(process.env.REACT_APP_FETCH_URL + "/message", {
+        const res = await fetch("/message", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            "auth-token": localStorage.getItem("token"),
           },
           body: JSON.stringify({
             message: message,
@@ -104,9 +105,7 @@ const ChatModal = ({ toggleShowChat, userCount, messages }) => {
                   <div key={i} className='message-container'>
                     <div className='message-sender'>
                       <span className='message-sender-location'>
-                        {`${m.partialIp}${
-                          m.timezone ? ` (${m.timezone})` : ``
-                        }`}
+                        {`${m.from}`}
                       </span>
                       <span className='message-sender-time'>
                         <TimeAgo date={m.createdAt} />

@@ -25,6 +25,7 @@ import EditPost from "./components/posts/EditPost";
 import Jobs from "./components/jobs/Jobs";
 import AddJob from "./components/jobs/AddJob";
 import Chat from "./components/chatApp/Chat";
+
 if (localStorage.token) {
   setAuthToken(localStorage.token);
 }
@@ -32,15 +33,15 @@ if (localStorage.token) {
 const App = () => {
   useEffect(() => {
     store.dispatch(loadUser());
-  }, []); //[] to make sure that load user run once
+  }, []);
 
   return (
     <Provider store={store}>
       <Router>
         <Fragment>
           <NavBar />
-          <Chat />
           <Route exact path='/' component={Landing} />
+          <PrivateRoute exact path='/profiles' component={Chat} />
           <section className='container'>
             <Alert />
             <Switch>

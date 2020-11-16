@@ -4,10 +4,25 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { logout } from "../../actions/auth";
 
-const Navbar = ({ logout, auth: { isAuthenticated, loading } }) => {
-  // get auth link, guest link
+const Navbar = ({ logout, auth: { isAuthenticated, user, loading } }) => {
+  // get auth link, guest link, admin link
+
   const authLinks = (
     <ul>
+      {isAuthenticated && user.role === "admin" && (
+        <li>
+          <Link to='/admins'>
+            <i className='fas fa-user-shield' />{" "}
+            <span className='hide-sm'>Admin</span>
+          </Link>
+        </li>
+      )}
+      <li>
+        <Link to='/events'>
+          <i className='far fa-calendar-alt' />{" "}
+          <span className='hide-sm'>Event</span>
+        </Link>
+      </li>
       <li>
         <Link to='/jobs'>
           <i className='far fa-list-alt' />{" "}

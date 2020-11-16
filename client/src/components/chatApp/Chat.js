@@ -15,7 +15,7 @@ const Chat = () => {
     fetchMessages();
   }, []);
   const createSocketConnection = () => {
-    const socket = openSocket(process.env.REACT_APP_FETCH_URL);
+    const socket = openSocket("http://localhost:5000/");
     // init
     socket.on("init", (data) => {
       setPublicUsers(data.users);
@@ -29,7 +29,7 @@ const Chat = () => {
   };
   const fetchMessages = async () => {
     try {
-      const res = await fetch(process.env.REACT_APP_FETCH_URL + "/messages");
+      const res = await fetch("/messages");
       if (res.status !== 200) {
         throw new Error("Failed to fetch messages");
       }

@@ -1,13 +1,21 @@
 const mongoose = require("mongoose");
-const messageSchema = new mongoose.Schema(
+const Schema = mongoose.Schema;
+const messageSchema = new Schema(
   {
     user: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Schema.Types.ObjectId,
       ref: "user",
     },
     from: {
       type: String,
     },
+    ip: String,
+    agent: {
+      platform: String,
+      os: String,
+    },
+    partialIp: String,
+    timezone: String,
     message: {
       type: String,
       required: true,
@@ -15,4 +23,4 @@ const messageSchema = new mongoose.Schema(
   },
   { timestamps: true }
 );
-module.exports = Message = mongoose.model("message", messageSchema);
+module.exports = mongoose.model("Message", messageSchema);

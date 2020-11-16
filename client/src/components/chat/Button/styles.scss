@@ -4,10 +4,9 @@ $disabled-base0: #ccc;
 $disabled-base1: #888;
 
 .btn-custom {
-  cursor: pointer;
+  cursor: pointer !important;
   padding: 0.4rem 0.7rem;
   color: #fff;
-  background: #333;
   border-radius: 5px;
   border: 1px solid #333;
   margin: 0.2rem;

@@ -23,6 +23,9 @@ const ProfileItem = ({
         <Link to={`/profile/user/${_id}`} className='btn btn-primary'>
           View Profile
         </Link>
+        <Link to={`/add-friend/${_id}`} className='btn btn-primary'>
+          + Add Friend
+        </Link>
       </div>
       <ul>
         {skills.slice(0, 4).map((skill, index) => (
