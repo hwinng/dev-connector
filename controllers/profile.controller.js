@@ -142,7 +142,7 @@ const addExperience = async (req, res) => {
 
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
-  } 
+  }
 
   const { title, company, location, from, to, current, description } = req.body;
 
@@ -204,7 +204,7 @@ const addEducation = async (req, res) => {
     description,
   } = req.body;
 
-  //Create a new experience object
+  //Create a new education object
   const newEdu = {
     school,
     degree,

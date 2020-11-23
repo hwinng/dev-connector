@@ -9,13 +9,6 @@ const messageSchema = new Schema(
     from: {
       type: String,
     },
-    ip: String,
-    agent: {
-      platform: String,
-      os: String,
-    },
-    partialIp: String,
-    timezone: String,
     message: {
       type: String,
       required: true,

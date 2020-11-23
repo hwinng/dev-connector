@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./store";
 import "./App.css";
+
 import setAuthToken from "./utilities/setAuthToken";
 import { loadUser } from "./actions/auth";
 
@@ -26,6 +27,9 @@ import Jobs from "./components/jobs/Jobs";
 import AddJob from "./components/jobs/AddJob";
 import Chat from "./components/chatApp/Chat";
 
+//admin pages
+import Admin from "./components/admin/Admin";
+
 if (localStorage.token) {
   setAuthToken(localStorage.token);
 }
@@ -41,6 +45,7 @@ const App = () => {
         <Fragment>
           <NavBar />
           <Route exact path='/' component={Landing} />
+          <PrivateRoute exact path='/admins' component={Admin} />
           <PrivateRoute exact path='/profiles' component={Chat} />
           <section className='container'>
             <Alert />

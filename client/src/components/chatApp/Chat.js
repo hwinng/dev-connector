@@ -10,6 +10,20 @@ const Chat = () => {
   const [messages, setMessages] = useState([]);
   const [error, setError] = useState(null);
 
+  const fetchMessages = async () => {
+    try {
+      const res = await fetch("/messages");
+      if (res.status !== 200) {
+        throw new Error("Failed to fetch messages");
+      }
+      const resData = await res.json();
+      // Set reversed 10 messages
+      setMessages(resData.messages.reverse());
+    } catch (err) {
+      setError(error);
+    }
+  };
+
   useEffect(() => {
     createSocketConnection();
     fetchMessages();
@@ -26,19 +40,6 @@ const Chat = () => {
         setMessages((prevMessages) => [...prevMessages, data.message]);
       }
     });
-  };
-  const fetchMessages = async () => {
-    try {
-      const res = await fetch("/messages");
-      if (res.status !== 200) {
-        throw new Error("Failed to fetch messages");
-      }
-      const resData = await res.json();
-      // Set reversed 10 messages
-      setMessages(resData.messages.reverse());
-    } catch (err) {
-      setError(err);
-    }
   };
   return (
     <div className='App'>
