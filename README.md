@@ -39,27 +39,30 @@ Devconnector is inspired by Brad Traversy with some core feature. In this versio
 
 ## Launch
 
-## Presequisite Environment
+### Presequisite Environment
 
 - Nodejs (npm)
 - Mongodb
-  First you need to clone the git repository, then install it locally using npm
 
 ### `How to run it locally?`
 
+First you need to clone the git repository, then install it locally using npm
+
 ```
-$ git clone https://github.com/codersx-philip-nguyen/dev-connector.git
-$ cd dev-connector
-$ npm i
-$ cd client
-$ npm i
-$ cd ..
+1. $ git clone https://github.com/codersx-philip-nguyen/dev-connector.git
+2. $ cd dev-connector
+3. $ npm i
+4. $ cd client
+5. $ npm i
+6. $ cd ..
+
 # To run server locally, you must have .env file in root project directory
 # See below .env file struture and replace with your value
 # After that, just run the command as below to start
-$ npm run dev
+
+7. $ npm run dev
+
 # project started
-$$
 ```
 
 ### `.env structure`
