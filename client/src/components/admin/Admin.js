@@ -1,5 +1,4 @@
 import React from "react";
-import "./asset/css/dashboard.css";
 
 import SideBar from "./SideBar";
 import NavBar from "./NavBar";

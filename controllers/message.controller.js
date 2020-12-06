@@ -1,4 +1,3 @@
-const geoip = require("geoip-lite");
 const io = require("../utils/socket");
 const Message = require("../models/Message");
 const User = require("../models/User");
