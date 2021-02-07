@@ -27,7 +27,7 @@ Project is created with MERN stack:
 
 ## Project status
 
-Devconnector is inspired by Brad Traversy with some core feature. In this version, I added some more feature:
+Devconnector is inspired by Brad Traversy with some core features. In this version, I added some more features:
 
 - Real-time public chat room
 - A recruiter page for adding recruitment news
