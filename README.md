@@ -86,6 +86,10 @@ DEVCONNECTOR v2.0.0
 
 Huyen Nguyen Van (Phillip Nguyen)
 
+## Certificate
+
+![Certificate]('./client/public/Udemy-Certificate.jpeg')
+
 ## Contact
 
 Email: phillipng.working@gmail.com
