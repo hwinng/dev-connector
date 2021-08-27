@@ -88,7 +88,7 @@ Huyen Nguyen Van (Phillip Nguyen)
 
 ## Certificate
 
-![Certificate]('./client/public/Udemy-Certificate.jpeg')
+![Certificate](client/public/Udemy-Certificate.jpeg)
 
 ## Contact
 
